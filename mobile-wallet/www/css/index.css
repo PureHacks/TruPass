@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+@import url(http://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:300);
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -24,6 +26,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    /*  
     background-color:#E4E4E4;
     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
@@ -37,17 +40,26 @@ body {
     );
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    */
+    font-family: 'Roboto Condensed', sans-serif;
     font-size:12px;
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
+    /*text-transform:uppercase;*/
     width:100%;
+    color: #666666;
 }
 
+/*body {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+}*/
+
+
+
 /* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+.app-2 {
     position:absolute;             /* position in the center of the screen */
     left:50%;
     top:50%;
@@ -55,21 +67,24 @@ body {
     width:225px;                   /* text area width */
     text-align:center;
     padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */                                 /* offset horizontal: half of text area width */
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+.app {
+
+}
+
+.ui-btn-corner-all {
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+}
+
+.ui-btn {
+    margin-top: 3em;
 }
 
 h1 {
+    font-family: 'Roboto', sans-serif;
     font-size:24px;
     font-weight:normal;
     margin:0px;
@@ -77,6 +92,45 @@ h1 {
     padding:0px;
     text-align:center;
 }
+
+h2 {
+    color: #0099CC;
+    font-weight: normal;
+}
+
+.splash-screen {
+    background: url(../img/splash-background.jpg) no-repeat center top;
+}
+
+.splash-screen .button-group {
+    position: absolute;
+    bottom: 20px;
+    width: 330px;
+}
+
+.splash-screen .ui-btn {
+    margin-top: 0;
+}
+
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app-2 {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+/*h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}*/
 
 .event {
     border-radius:4px;
