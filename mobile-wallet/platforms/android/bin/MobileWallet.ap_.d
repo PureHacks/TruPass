@@ -56,10 +56,12 @@
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/icon-settings.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/icon-trupass.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/icons-18-white.png \
+/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/logo-trupass copy.gif \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/logo-trupass.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/MC_logo_small.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/splash-background.jpg \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/trupass.png \
+/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/js/angular.min.js \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/js/index.js \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/js/jquery-2.0.3.min.js \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/js/jquery.mobile-1.3.2.min.js \

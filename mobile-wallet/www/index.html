@@ -21,44 +21,84 @@
         <div id="splash" class="app splash-screen" data-role="page">
             <div data-role="content">
                 <div class="button-group">
-                    <a href="#sign-up" class="sign-up-button" data-role="button" data-theme="b">Sign Up</a> 
-                    <a href="#login" class="login-button" data-role="button">Login</a>
+                    <a href="#sign-up" class="btn-sign-up" data-role="button" data-theme="b">Sign Up</a> 
+                    <a href="#login" class="btn-login" data-role="button" data-theme="c">Login</a>
                 </div>
             </div>
         </div>
 
-        <div id="sign-up" class="app" data-role="page" data-add-back-btn="true">
+        <div id="sign-up" class="app sign-up" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1></h1>
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
             </div>
 
             <div data-role="content">
                 <h2>Sign up to start using TruPass</h2>
                 
                 <div class="form">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value=""  />
+                    <label for="email" class="ui-hidden-accessible">Email:</label>
+                    <input type="email" name="email" id="email" value="" placeholder="Email"  />
 
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" id="name" value=""  />
+                    <label for="firstname" class="ui-hidden-accessible">First Name:</label>
+                    <input type="text" name="firstname" id="first-name" value="" placeholder="First Name" />
 
-                    <label for="password">Passcode (4-6 digits):</label>
-                    <input type="password" name="password" id="password" value=""  />
+                    <label for="lastname" class="ui-hidden-accessible">Last Name:</label>
+                    <input type="text" name="lastname" id="last-name" value="" placeholder="Last Name"  />
+
+                    <label for="passcode" class="ui-hidden-accessible">Passcode (4-6 digits):</label>
+                    <input type="text" name="passcode" id="passcode" value="" placeholder="Passcode (4-6 digits)" data-placeholder="true" />
 
                     <input type="submit" value="Sign Up" data-theme="e" />
                 </div>
             </div>
         </div>
 
-        <div id="enter-passcode" class="app" data-role="page" data-add-back-btn="true">
+        <div id="confirmation" class="app confirmation" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1></h1>
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
+            </div>
+
+            <div data-role="content">
+                <h2>Welcome to TruPass!</h2>
+                
+                <div class="form">
+                    <p>Thank you for registering.</p>
+                    <p>Please check your email to confirm your account.</p>
+
+                    <input type="submit" value="Send Confirmation Again" data-theme="e" />
+                </div>
+            </div>
+        </div>
+
+        <div id="accept" class="app accept" data-role="page" data-add-back-btn="false">
+            <div data-role="header" data-theme="e">
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span> Accept</h1>
+            </div>
+
+            <div data-role="content">
+                <!-- <h2>Welcome to TruPass!</h2> -->
+
+                <p>You received a TruPass from <span class="name">Simon Burns</span> with a <span class="amount">$100.00</span> limit.</p>
+                
+                <div class="form">
+                    <label for="security-answer">What is Khoa's favourit tablet?</label>
+                    <input type="text" name="security-answer" id="security-answer" value=""  />
+
+                    <input type="submit" value="Accept TruPass" data-theme="e" />
+                </div>
+            </div>
+        </div>
+
+        <div id="enter-passcode" class="app enter-passcode" data-role="page" data-add-back-btn="false">
+            <div data-role="header" data-theme="e">
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
             </div>
 
             <div data-role="content">
                 <h2>Enter your passcode</h2>
                 
                 <div class="form">
+                    <label for="passcode" class="ui-hidden-accessible">Passcode:</label>
                     <input type="number" name="passcode" id="passcode" value=""  />
 
                     <input type="submit" value="Enter" data-theme="e" />
@@ -66,55 +106,87 @@
             </div>
         </div>
 
-        <div id="login" class="app" data-role="page" data-add-back-btn="true">
+        <div id="login" class="app login" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1></h1>
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
             </div>
 
             <div data-role="content">
                 <h2>Login TruPass</h2>
                 
                 <div class="form">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value=""  />
+                    <label for="email" class="ui-hidden-accessible">Email:</label>
+                    <input type="email" name="email" id="email" value="" placeholder="Email"  />
 
-                    <label for="password">Passcode:</label>
-                    <input type="password" name="password" id="password" value=""  />
+                    <label for="passcode" class="ui-hidden-accessible">Passcode:</label>
+                    <input type="text" name="passcode" id="passcode" value="" Placeholder="Passcode"  />
 
                     <input type="submit" value="Login" data-theme="e" />
                 </div>
             </div>
         </div>
 
-        <div id="add-card" class="app wallet" data-role="page" data-add-back-btn="true">
+        <div id="add-card" class="app add-carde" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1>Wallet</h1>
+                <a href="#" class="ui-btn-right add-card">Add Card</a>
+                <a href="#" class="ui-btn-right notification"><span class="notification-number">0</span></a>
+                <a href="#" class="ui-btn-right settings">Settings</a>
+                <h1><!-- <a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> --><span class="logo"></span> Add Card</h1>
             </div>
 
             <div data-role="content">
-                <h2>Credit Card information</h2>
+                <h2>Credit Card Information</h2>
                 
                 <div class="form">
-                    <label for="number">Mastercard NSumber:</label>
-                    <input type="number" name="number" id="number" value=""  />
+                    <label for="mastercard" class="ui-hidden-accessible">Mastercard Number:</label>
+                    <input type="text" name="mastercard" id="mastercard" value="" placeholder="Mastercard Number"  />
 
-                    <label for="cardholder">Cardholder Name:</label>
-                    <input type="text" name="cardholder" id="cardholder" value=""  />
+                    <label for="cardholder" class="ui-hidden-accessible">Cardholder Name:</label>
+                    <input type="text" name="cardholder" id="cardholder" value="" Placeholder="Cardholder Name" />
 
-                    <label for="month">Expiration Date:</label>
-                    <input type="number" name="month" id="month" value=""  />
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Expiration Date:</legend>
+                        <!-- <label for="month">Month</label> -->
+                        <select name="month" id="month" data-role="none">
+                            <option>MM</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
 
-                    <label for="cvv">Security Code:</label>
-                    <input type="number" name="cvv" id="cvv" value=""  />
+                        <!-- <label for="year">Year</label> -->
+                        <select name="year" id="year" data-role="none">
+                            <option>YYYY</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                        </select>
+                    </fieldset>
+
+                    <label for="cvc">Security Code:</label>
+                    <input type="number" name="cvc" id="cvc" value="" />
 
                     <input type="submit" value="Login" data-theme="e" />
                 </div>
             </div>
         </div>
 
-        <div id="wallet" class="app wallet" data-role="page" data-add-back-btn="true">
+        <div id="wallet" class="app wallet" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1>Wallet</h1>
+                <a href="#" class="ui-btn-right add-card">Add Card</a>
+                <a href="#" class="ui-btn-right notification"><span class="notification-number">0</span></a>
+                <a href="#" class="ui-btn-right settings">Settings</a>
+                <h1><!-- <a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> --><span class="logo"></span> Wallet</h1>
             </div>
 
             <div data-role="content">
@@ -126,6 +198,7 @@
 
         <script src="js/jquery-2.0.3.min.js"></script>
         <script src="js/jquery.mobile-1.3.2.min.js"></script>
+        <script src="js/angular.min.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">

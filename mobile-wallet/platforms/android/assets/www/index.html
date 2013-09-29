@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -22,44 +21,65 @@
         <div id="splash" class="app splash-screen" data-role="page">
             <div data-role="content">
                 <div class="button-group">
-                    <a href="#sign-up" class="sign-up-button" data-role="button" data-theme="b">Sign Up</a> 
-                    <a href="#login" class="login-button" data-role="button">Login</a>
+                    <a href="#sign-up" class="btn-sign-up" data-role="button" data-theme="b">Sign Up</a> 
+                    <a href="#add-card" class="btn-login" data-role="button" data-theme="c">Login</a>
                 </div>
             </div>
         </div>
 
-        <div id="sign-up" class="app" data-role="page" data-add-back-btn="true">
+        <div id="sign-up" class="app sign-up" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1></h1>
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
             </div>
 
             <div data-role="content">
                 <h2>Sign up to start using TruPass</h2>
                 
                 <div class="form">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value=""  />
+                    <label for="email" class="ui-hidden-accessible">Email:</label>
+                    <input type="email" name="email" id="email" value="" placeholder="Email"  />
 
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" id="name" value=""  />
+                    <label for="firstname" class="ui-hidden-accessible">First Name:</label>
+                    <input type="text" name="firstname" id="first-name" value="" placeholder="First Name" />
 
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" value=""  />
+                    <label for="lastname" class="ui-hidden-accessible">Last Name:</label>
+                    <input type="text" name="lastname" id="last-name" value="" placeholder="Last Name"  />
+
+                    <label for="passcode" class="ui-hidden-accessible">Passcode (4-6 digits):</label>
+                    <input type="text" name="passcode" id="passcode" value="" placeholder="Passcode (4-6 digits)" data-placeholder="true" />
 
                     <input type="submit" value="Sign Up" data-theme="e" />
                 </div>
             </div>
         </div>
 
-        <div id="enter-passcode" class="app" data-role="page" data-add-back-btn="true">
+        <div id="confirmation" class="app confirmation" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1></h1>
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
+            </div>
+
+            <div data-role="content">
+                <h2>Welcome to TruPass!</h2>
+                
+                <div class="form">
+                    <p>Thank you for registering.</p>
+                    <p>Please check your email to confirm your account.</p>
+
+                    <input type="submit" value="Send Confirmation Again" data-theme="e" />
+                </div>
+            </div>
+        </div>
+
+        <div id="enter-passcode" class="app enter-passcode" data-role="page" data-add-back-btn="false">
+            <div data-role="header" data-theme="e">
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
             </div>
 
             <div data-role="content">
                 <h2>Enter your passcode</h2>
                 
                 <div class="form">
+                    <label for="passcode" class="ui-hidden-accessible">Passcode:</label>
                     <input type="number" name="passcode" id="passcode" value=""  />
 
                     <input type="submit" value="Enter" data-theme="e" />
@@ -67,30 +87,85 @@
             </div>
         </div>
 
-        <div id="login" class="app" data-role="page" data-add-back-btn="true">
+        <div id="login" class="app login" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <h1></h1>
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span></h1>
             </div>
 
             <div data-role="content">
                 <h2>Login TruPass</h2>
                 
                 <div class="form">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value=""  />
+                    <label for="email" class="ui-hidden-accessible">Email:</label>
+                    <input type="email" name="email" id="email" value="" placeholder="Email"  />
 
-                    <label for="password">Passcode:</label>
-                    <input type="password" name="password" id="password" value=""  />
+                    <label for="passcode" class="ui-hidden-accessible">Passcode:</label>
+                    <input type="text" name="passcode" id="passcode" value="" Placeholder="Passcode"  />
 
                     <input type="submit" value="Login" data-theme="e" />
                 </div>
             </div>
         </div>
 
-        <div id="cards" class="app" data-role="page" data-add-back-btn="true"></div>
+        <div id="add-card" class="app add-carde" data-role="page" data-add-back-btn="false">
+            <div data-role="header" data-theme="e">
+                <a href="#" class="ui-btn-right add-card">Add Card</a>
+                <a href="#" class="ui-btn-right notification"><span class="notification-number">0</span></a>
+                <a href="#" class="ui-btn-right settings">Settings</a>
+                <h1><!-- <a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> --><span class="logo"></span> Add Card</h1>
+            </div>
+
+            <div data-role="content">
+                <h2>Credit Card Information</h2>
+                
+                <div class="form">
+                    <label for="mastercard" class="ui-hidden-accessible">Mastercard Number:</label>
+                    <input type="text" name="mastercard" id="mastercard" value="" placeholder="Mastercard Number"  />
+
+                    <label for="cardholder" class="ui-hidden-accessible">Cardholder Name:</label>
+                    <input type="text" name="cardholder" id="cardholder" value="" Placeholder="Cardholder Name" data-role="none" />
+
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Expiration Date:</legend>
+                        <!-- <label for="month">Month</label> -->
+                        <select name="month" id="month" data-role="none">
+                            <option>Month</option>
+                            <option value="jan">January</option>
+                        </select>
+
+                        <label for="year">Year</label>
+                        <select name="year" id="year">
+                            <option>Year</option>
+                            <option value="2011">2011</option>
+                        </select>
+                    </fieldset>
+
+                    <label for="cvc">Security Code:</label>
+                    <input type="number" name="cvc" id="cvc" value="" />
+
+                    <input type="submit" value="Login" data-theme="e" />
+                </div>
+            </div>
+        </div>
+
+        <div id="wallet" class="app wallet" data-role="page" data-add-back-btn="false">
+            <div data-role="header" data-theme="e">
+                <a href="#" class="ui-btn-right add-card">Add Card</a>
+                <a href="#" class="ui-btn-right notification"><span class="notification-number">0</span></a>
+                <a href="#" class="ui-btn-right settings">Settings</a>
+                <h1><!-- <a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> --><span class="logo"></span> Wallet</h1>
+            </div>
+
+            <div data-role="content">
+                <h2>My Cards</h2>
+
+                <h2>My TruPass</h2>
+            </div>
+        </div>
 
         <script src="js/jquery-2.0.3.min.js"></script>
         <script src="js/jquery.mobile-1.3.2.min.js"></script>
+        <script src="js/angular.min.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
