@@ -72,6 +72,82 @@ var app = {
     }
 };
 
+$(document).ready(function () {
+    //user sign up
+    $("#sign-up-submit").click(function (e) {
+        e.preventDefault();
+        var data = {
+            email: $("#email").val(),
+            firstName: $("#firstname").val(),
+            lastName: $("#lastname").val(),
+            passcode: $("#passcode").val()
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "",
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $.mobile.showPageLoadingMsg(true);
+            },
+            complete: function () {
+                $.mobile.hidePageLoadingMsg();
+            },
+            success: function (result) {
+                $.mobile.changePage($("#confirmation"));
+            },
+            error: function (request, error) {
+
+            }
+        });
+    });
+
+    //login
+    $("#login-form").submit(function () {
+        var data = {
+            email: $("#email").val(),
+            passcode: $("#passcode").val()
+        };
+
+        if (navigator.notification) {
+            navigator.notification.alert("email: " + data.email + " | passcode: " + data.passcode);
+        }
+
+        // if (data.email === "" || data.passcode === "") {
+        //     if (navigator.notification) {
+        //         navigator.notification.alert("Email and Passcode are required.", loginAlertDismissed);
+        //     }
+        // } else {
+        //     $.mobile.changePage($("#wallet"));
+
+        //     // $.ajax({
+        //     //     type: "POST",
+        //     //     url: "",
+        //     //     data: data,
+        //     //     ,
+        //     //     beforeSend: function () {
+        //     //         $.mobile.showPageLoadingMsg(true);
+        //     //     },
+        //     //     complete: function () {
+        //     //         $.mobile.hidePageLoadingMsg();
+        //     //     },
+        //     //     success: function (result) {
+        //     //         $.mobile.changePage($("#wallet"));
+        //     //     },
+        //     //     error: function (request, error) {
+
+        //     //     }
+        //     // });
+        // }
+    });
+});
+
+function loginAlertDismissed() {
+    $.mobile.changePage("#login");
+}
+
 
 // $('#reposHome').bind('pageinit', function(event) {
 //     loadRepos();

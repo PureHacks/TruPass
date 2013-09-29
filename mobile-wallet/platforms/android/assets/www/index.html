@@ -9,20 +9,11 @@
         <title>TruPass</title>
     </head>
     <body>
-        <!-- <div id="reposHome" data-role="page">
-            <div data-role="header" data-position="fixed">
-                <h1>GitHub Search</h1>
-            </div>
-            <div data-role="content">
-                <ul id="allRepos" data-role="listview" data-filter="true">
-                </ul>
-            </div>
-        </div> -->
         <div id="splash" class="app splash-screen" data-role="page">
             <div data-role="content">
                 <div class="button-group">
                     <a href="#sign-up" class="btn-sign-up" data-role="button" data-theme="b">Sign Up</a> 
-                    <a href="#add-card" class="btn-login" data-role="button" data-theme="c">Login</a>
+                    <a href="#login" class="btn-login" data-role="button" data-theme="c">Login</a>
                 </div>
             </div>
         </div>
@@ -35,7 +26,7 @@
             <div data-role="content">
                 <h2>Sign up to start using TruPass</h2>
                 
-                <div class="form">
+                <form class="form" method="put" data-ajax="false">
                     <label for="email" class="ui-hidden-accessible">Email:</label>
                     <input type="email" name="email" id="email" value="" placeholder="Email"  />
 
@@ -48,8 +39,8 @@
                     <label for="passcode" class="ui-hidden-accessible">Passcode (4-6 digits):</label>
                     <input type="text" name="passcode" id="passcode" value="" placeholder="Passcode (4-6 digits)" data-placeholder="true" />
 
-                    <input type="submit" value="Sign Up" data-theme="e" />
-                </div>
+                    <input id="sign-up-submit" type="submit" value="Sign Up" data-theme="e" />
+                </form>
             </div>
         </div>
 
@@ -66,6 +57,25 @@
                     <p>Please check your email to confirm your account.</p>
 
                     <input type="submit" value="Send Confirmation Again" data-theme="e" />
+                </div>
+            </div>
+        </div>
+
+        <div id="accept" class="app accept" data-role="page" data-add-back-btn="false">
+            <div data-role="header" data-theme="e">
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span> Accept</h1>
+            </div>
+
+            <div data-role="content">
+                <!-- <h2>Welcome to TruPass!</h2> -->
+
+                <p>You received a TruPass from <span class="name">Simon Burns</span> with a <span class="amount">$100.00</span> limit.</p>
+                
+                <div class="form">
+                    <label for="security-answer">What is Khoa's favourit tablet?</label>
+                    <input type="text" name="security-answer" id="security-answer" value=""  />
+
+                    <input type="submit" value="Accept TruPass" data-theme="e" />
                 </div>
             </div>
         </div>
@@ -95,7 +105,7 @@
             <div data-role="content">
                 <h2>Login TruPass</h2>
                 
-                <div class="form">
+                <form id="login-form" class="form" method="POST" data-ajax="false">
                     <label for="email" class="ui-hidden-accessible">Email:</label>
                     <input type="email" name="email" id="email" value="" placeholder="Email"  />
 
@@ -103,13 +113,13 @@
                     <input type="text" name="passcode" id="passcode" value="" Placeholder="Passcode"  />
 
                     <input type="submit" value="Login" data-theme="e" />
-                </div>
+                </form>
             </div>
         </div>
 
         <div id="add-card" class="app add-carde" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <a href="#" class="ui-btn-right add-card">Add Card</a>
+                <a href="#add-card" class="ui-btn-right add-card">Add Card</a>
                 <a href="#" class="ui-btn-right notification"><span class="notification-number">0</span></a>
                 <a href="#" class="ui-btn-right settings">Settings</a>
                 <h1><!-- <a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> --><span class="logo"></span> Add Card</h1>
@@ -123,34 +133,48 @@
                     <input type="text" name="mastercard" id="mastercard" value="" placeholder="Mastercard Number"  />
 
                     <label for="cardholder" class="ui-hidden-accessible">Cardholder Name:</label>
-                    <input type="text" name="cardholder" id="cardholder" value="" Placeholder="Cardholder Name" data-role="none" />
+                    <input type="text" name="cardholder" id="cardholder" value="" Placeholder="Cardholder Name" />
 
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Expiration Date:</legend>
                         <!-- <label for="month">Month</label> -->
                         <select name="month" id="month" data-role="none">
-                            <option>Month</option>
-                            <option value="jan">January</option>
+                            <option>MM</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
                         </select>
 
-                        <label for="year">Year</label>
-                        <select name="year" id="year">
-                            <option>Year</option>
-                            <option value="2011">2011</option>
+                        <!-- <label for="year">Year</label> -->
+                        <select name="year" id="year" data-role="none">
+                            <option>YYYY</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
                         </select>
                     </fieldset>
 
                     <label for="cvc">Security Code:</label>
                     <input type="number" name="cvc" id="cvc" value="" />
 
-                    <input type="submit" value="Login" data-theme="e" />
+                    <input type="submit" value="Add Card" data-theme="e" />
                 </div>
             </div>
         </div>
 
         <div id="wallet" class="app wallet" data-role="page" data-add-back-btn="false">
             <div data-role="header" data-theme="e">
-                <a href="#" class="ui-btn-right add-card">Add Card</a>
+                <a href="#add-card" class="ui-btn-right add-card">Add Card</a>
                 <a href="#" class="ui-btn-right notification"><span class="notification-number">0</span></a>
                 <a href="#" class="ui-btn-right settings">Settings</a>
                 <h1><!-- <a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> --><span class="logo"></span> Wallet</h1>
@@ -158,8 +182,12 @@
 
             <div data-role="content">
                 <h2>My Cards</h2>
+                <ul id="my-cards" data-role="listview">
+                </ul>
 
                 <h2>My TruPass</h2>
+                <ul id="my-trupass" data-role="listview">
+                </ul>
             </div>
         </div>
 

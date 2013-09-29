@@ -72,6 +72,243 @@ var app = {
     }
 };
 
+$(document).ready(function () {
+    //user sign up
+    $("#sign-up-form").submit(function () {
+        var data = {
+            email: $("#sign-up-email").val(),
+            firstName: $("#sign-up-firstname").val(),
+            lastName: $("#sign-up-lastname").val(),
+            passcode: $("#sign-up-passcode").val()
+        };
+
+        if (data.email === "" || data.firstname === "" || data.lastname === "" || data.passcode === "") {
+            if (navigator.notification) {
+                navigator.notification.alert("All fields are required.", signUpAlertDismissed);
+            }
+        } else {
+            $.mobile.changePage($("#confirmation"));
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "",
+            //     cache: false,
+            //     data: JSON.stringify(data),
+            //     contentType: "application/json; charset=utf-8",
+            //     beforeSend: function () {
+            //         $.mobile.showPageLoadingMsg(true);
+            //     },
+            //     complete: function () {
+            //         $.mobile.hidePageLoadingMsg();
+            //     },
+            //     success: function (result) {
+            //         $.mobile.changePage($("#confirmation"));
+            //     },
+            //     error: function (request, error) {
+
+            //     }
+            // });
+        }
+    });
+
+    //login
+    $("#login-form").submit(function () {
+        var data = {
+            email: $("#login-email").val(),
+            passcode: $("#login-passcode").val()
+        };
+
+        if (data.email === "" || data.passcode === "") {
+            if (navigator.notification) {
+                navigator.notification.alert("All fields are required are required.", loginAlertDismissed);
+            }
+        } else {
+            $.mobile.changePage($("#wallet"));
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "",
+            //     data: data,
+            //     ,
+            //     beforeSend: function () {
+            //         $.mobile.showPageLoadingMsg(true);
+            //     },
+            //     complete: function () {
+            //         $.mobile.hidePageLoadingMsg();
+            //     },
+            //     success: function (result) {
+            //         $.mobile.changePage($("#wallet"));
+            //     },
+            //     error: function (request, error) {
+            //     }
+            // });
+        }
+    });
+
+    //add card
+    $("#add-card-form").submit(function () {
+        var data = {
+            mastercard: $("#add-card-mastercard").val(),
+            cardholder: $("#add-card-cardholder").val(),
+            expiration: $("#add-card-month").val() + $("#add-card-year").val(),
+            cvv: $("#add-card-cvv").val()
+        }
+
+        if (data.mastercard === "" || data.cardholder === "" || data.expiration === "" || data.cvv === "") {
+            if (navigator.notification) {
+                navigator.notification.alert("All fields are required are required.", addCardAlertDismissed);
+            }
+        } else {
+            $.mobile.changePage($("#wallet"));
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "",
+            //     data: data,
+            //     ,
+            //     beforeSend: function () {
+            //         $.mobile.showPageLoadingMsg(true);
+            //     },
+            //     complete: function () {
+            //         $.mobile.hidePageLoadingMsg();
+            //     },
+            //     success: function (result) {
+            //         $.mobile.changePage($("#wallet"));
+            //     },
+            //     error: function (request, error) {
+            //     }
+            // });
+        }
+    });
+
+    //accept trupass
+    $("#accept-trupass-form").submit(function () {
+        var data = {
+            answer: $("#security-answer").val()
+        };
+        
+        if (data.answer === "") {
+            if (navigator.notification) {
+                navigator.notification.alert("All fields are required are required.", addCardAlertDismissed);
+            }
+        } else {
+            $.mobile.changePage($("#wallet"));
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "",
+            //     data: data,
+            //     ,
+            //     beforeSend: function () {
+            //         $.mobile.showPageLoadingMsg(true);
+            //     },
+            //     complete: function () {
+            //         $.mobile.hidePageLoadingMsg();
+            //     },
+            //     success: function (result) {
+            //         $.mobile.changePage($("#wallet"));
+            //     },
+            //     error: function (request, error) {
+            //     }
+            // });
+        }
+    });
+
+    //account confirmation
+    $("#confirmation-form").submit(function () {
+        $.mobile.changePage($("#enter-passcode"));
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: "",
+        //     data: data,
+        //     ,
+        //     beforeSend: function () {
+        //         $.mobile.showPageLoadingMsg(true);
+        //     },
+        //     complete: function () {
+        //         $.mobile.hidePageLoadingMsg();
+        //     },
+        //     success: function (result) {
+        //         $.mobile.changePage($("#enter-passcode"));
+        //     },
+        //     error: function (request, error) {
+        //     }
+        // });
+    });
+
+    //enter passcode
+    $("#enter-passcode-form").submit(function () {
+        var data = {
+            passcode: $("#enter-passcode-passcode").val()
+        };
+
+        if (data.passcode === "") {
+            if (navigator.notification) {
+                navigator.notification.alert("All fields are required are required.", enterPasscodeAlertDismissed);
+            }
+        } else {
+            $.mobile.changePage($("#wallet"));
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "",
+            //     data: data,
+            //     ,
+            //     beforeSend: function () {
+            //         $.mobile.showPageLoadingMsg(true);
+            //     },
+            //     complete: function () {
+            //         $.mobile.hidePageLoadingMsg();
+            //     },
+            //     success: function (result) {
+            //         $.mobile.changePage($("#wallet"));
+            //     },
+            //     error: function (request, error) {
+            //     }
+            // });
+        }
+    });
+});
+
+function signUpAlertDismissed() {
+    $.mobile.changePage("#sign-up");
+}
+
+function loginAlertDismissed() {
+    $.mobile.changePage("#login");
+}
+
+function addCardAlertDismissed() {
+    $.mobile.changePage("#add-card");   
+}
+
+function enterPasscodeAlertDismissed() {
+    $mobile.changePage("#enter-passcode");
+}
+
+function loadMyCards() {
+    // $.ajax("").done(function (data) {
+    //     var idx, card;
+
+    //     $.each(data.cards, function (idx, card) {
+    //         $("#my-cards").append("<li></li>");
+    //     });
+    //     $("#my-cards").listview("refresh");
+    // });
+}
+
+function loadMyTruPass() {
+    // $.ajax("").done(function (data) {
+    //     var idx, trupass;
+
+    //     $.each(data.cards, function (idx, trupass) {
+    //         $("#my-trupass").append("<li></li>");
+    //     });
+    //     $("#my-trupass").listview("refresh");
+    // });
+}
+
 
 // $('#reposHome').bind('pageinit', function(event) {
 //     loadRepos();

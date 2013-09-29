@@ -366,8 +366,9 @@ input.ui-input-text {
 .confirmation p {
     text-align: center;
     margin: 0 auto;
-    width: 150px;
-    line-height: 18px;
+    width: 200px;
+    line-height: 20px;
+    font-size: 16px;
 }
 
 .icons {
@@ -418,6 +419,18 @@ input.ui-input-text {
 
 .add-card legend {
 
+}
+
+.accept p {
+    text-align: center;
+    margin: 0 auto 100px auto;
+    width: 250px;
+    line-height: 20px;
+    font-size: 16px;
+}
+
+.accept .amount {
+    color: #2AB260;
 }
 
 
