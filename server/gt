@@ -1,0 +1,84 @@
+[33mcommit 29a4aaead8fdc20a34c210e553ec41b882941b57[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 11:20:27 2013 -0400
+
+    increase plp high
+
+[33mcommit 5bd3c8a7c30f4a18a2de353456786d45ea43409e[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 11:13:53 2013 -0400
+
+    update category Content Type to Json
+
+[33mcommit 1f948d114fa9e7a7890480775ef8fda2399a07d0[m
+Merge: b423227 d4a1c8a
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 11:08:09 2013 -0400
+
+    Merge branch 'master' of heroku.com:frontendmvc
+
+[33mcommit b423227502c10059ee0ad83294c50b925015df11[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 11:07:48 2013 -0400
+
+    service update
+
+[33mcommit d4a1c8a67458f04fb00cdafa82836065e16d88e0[m
+Author: shan-du <shan.du.sdu@gmail.com>
+Date:   Tue Aug 20 10:31:08 2013 -0400
+
+    updated slides
+
+[33mcommit 69c1d5f142dcdda02550e8eb31c2d45c114a2329[m
+Author: Pauline Ramos <pauline.ramos@nurun.com>
+Date:   Tue Aug 20 09:56:02 2013 -0400
+
+    Updated presentation powerpoint
+
+[33mcommit 8061a9481f1cc970897acec1978bc871debc34ba[m
+Author: Pauline Ramos <pauline.ramos@nurun.com>
+Date:   Tue Aug 20 09:50:59 2013 -0400
+
+    cleanup
+
+[33mcommit 0cdc0080ed3307645408daa2ccf0b5a752310bed[m
+Author: Pauline Ramos <pauline.ramos@nurun.com>
+Date:   Tue Aug 20 09:36:57 2013 -0400
+
+    Added 'add to cart' alert box
+
+[33mcommit a0068a6517431254b5b0d8df956cad35b2186e02[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 03:15:32 2013 -0400
+
+    add memcache module
+
+[33mcommit ebc5aae5bea532bab572f0dbd3a82ff38be3dedf[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 03:03:54 2013 -0400
+
+    added caching to web service
+
+[33mcommit fdd2f07c3a4ce3110f1be2d9ceb785f00dedddf5[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 02:14:22 2013 -0400
+
+    adjust angular PLP layout to match rest
+
+[33mcommit 87bac5a1175efb30e1d3496fe574beea68cf3606[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 02:00:45 2013 -0400
+
+    try a jquery way of scrolling top
+
+[33mcommit dc49ca70a30cca92d7b19138a697d9b71b4d16b7[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 01:54:01 2013 -0400
+
+    add subscription to currentView to triger scrollTop
+
+[33mcommit 8ad1ad14a864caef49fea45ef2c8904d7e028028[m
+Author: Jason Matthews <jmatthews@netprotocal.com>
+Date:   Tue Aug 20 01:37:02 2013 -0400
+
+    adjust search alpha

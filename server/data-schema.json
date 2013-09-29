@@ -1,0 +1,36 @@
+{
+	"user": [{
+		"email": "user@domain.com",
+		"pass": "12345678",
+		"lastName": "Smith",
+		"firstName": "Tina",
+		"dateCreated": "10/21/2013",
+		"creditCard": [{
+			"number": 41000000000000,
+			"nameOnCard": "Tina Smith",
+			"expiry": "9/28/2014",
+			"ccid": "123",
+			"limit": 2000
+		}],
+		"trupass": [{
+			"_id": 152436,
+			"limit": 200,
+			"balance": 234,
+			"user": 364512,
+			"parentCard": 41000000000000,
+			"preAuthId": "265320",
+			"type": "single/recur",
+			"period": {
+				"start": "10/21/2013",
+				"end": "10/21/2013"
+			},
+			"activated": true,
+			"dateCreated": "10/21/2013",
+			"transactionHistory": [{
+				"amount": 59.97,
+				"merchant": "Star Bucks",
+				"dateCreated": "10/21/2013"
+			}]
+		}]
+	}]
+}
