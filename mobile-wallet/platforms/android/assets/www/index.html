@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>TruPass</title>
@@ -185,21 +185,21 @@
                     <li data-role="list-divider">My Cards <span class="ui-li-count">3</span></li>
                     <li>
                         <a href="#payment">
-                            <img src="img/card-standard-generic.png" />
+                            <img src="img/icon-card-standard-generic.png" />
                             <h3>Mastercard Standard</h3>
                             <p class="ui-li-aside"><span>$325.85</span>Available Credit</p>
                         </a>
                     </li>
                     <li>
                         <a href="#payment">
-                            <img src="img/card-world-generic.png" />
+                            <img src="img/icon-card-world-generic.png" />
                             <h3>Mastercard World</h3>
                             <p class="ui-li-aside"><span>$1,500.00</span>Available Credit</p>
                         </a>
                     </li>
                     <li>
                         <a href="#payment">
-                            <img src="../img/card-world-elite-generic.png" />
+                            <img src="img/icon-card-world-elite-generic.png" />
                             <h3>Mastercard World Elite</h3>
                             <p class="trupass"></p>
                             <p class="ui-li-aside"><span>$5,840.21</span>Available Credit</p>
@@ -208,24 +208,13 @@
                     <li data-role="list-divider">My TruPass <span class="ui-li-count">1</span></li>
                     <li>
                         <a href="#payment">
-                            <img src="../img/icon-trupass.png" />
+                            <img src="img/icon-trupass.png" />
                             <h3>Received from Simon Burns</h3>
                             <p>Expires Oct 6, 2013</p>
                             <p class="ui-li-aside"><span>$100.00</span>Available Credit</p>
                         </a>
                     </li>
                 </ul>
-                <!-- <h2>My Cards</h2>
-                <ul id="my-cards" data-role="listview">
-                    <li>
-                        <span class="card"></span>
-                        <span class="amount"></span>
-                    </li>
-                </ul>
-
-                <h2>My TruPass</h2>
-                <ul id="my-trupass" data-role="listview">
-                </ul> -->
             </div>
         </div>
 
@@ -235,15 +224,22 @@
             </div>
 
             <div data-role="content">
-                <img src="" />
+                <img src="img/card-world-elite-generic.png" />
                 <h3>World Elite Mastercard</h3>
                 <p class="available-credit">$9,130.45</p>
                 <p>Available Credit</p>
 
-                <a href="#"><img src="" /></a>
-                <p>Tap to enable</p>
+                <div class="nfc-disabled">
+                    <a id="enable-nfc" href="#"><img src="img/icon-nfc-disabled.png" class="nfc-icon" /></a>
+                    <p>Tap to enable</p>
+                </div>
 
-                <a href="#wallet">Back to Wallet</a>
+                <div class="nfc-enabled">
+                    <a id="send-nfc-data" href="#"><img src="img/icon-nfc-enabled.png" class="nfc-icon" /></a>
+                    <p class="timer">14s</p>
+                </div>
+
+                <a href="#wallet" data-role="button" data-theme="c">Back to Wallet</a>
             </div>
         </div>
 
