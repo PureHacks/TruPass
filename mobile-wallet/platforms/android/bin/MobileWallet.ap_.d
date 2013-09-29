@@ -48,9 +48,9 @@
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/css/images/icons-18-white.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/css/images/icons-36-black.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/css/images/icons-36-white.png \
-/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/card_standard_generic.png \
-/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/card_world_elite_generic.png \
-/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/card_world_generic.png \
+/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/card-standard-generic.png \
+/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/card-world-elite-generic.png \
+/Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/card-world-generic.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/icon-add-card.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/icon-nfc-enabled-1.png \
 /Users/pauline/Projects/mastercard-hackathon/TruPass/mobile-wallet/platforms/android/assets/www/img/icon-nfc-enabled-2.png \

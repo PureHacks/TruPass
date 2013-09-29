@@ -26,20 +26,20 @@
             <div data-role="content">
                 <h2>Sign up to start using TruPass</h2>
                 
-                <form class="form" method="put" data-ajax="false">
-                    <label for="email" class="ui-hidden-accessible">Email:</label>
-                    <input type="email" name="email" id="email" value="" placeholder="Email"  />
+                <form id="sign-up-form" class="form" method="POST" data-ajax="false">
+                    <label for="sign-up-email" class="ui-hidden-accessible">Email:</label>
+                    <input type="email" name="email" id="sign-up-email" value="" placeholder="Email"  />
 
-                    <label for="firstname" class="ui-hidden-accessible">First Name:</label>
-                    <input type="text" name="firstname" id="first-name" value="" placeholder="First Name" />
+                    <label for="sign-up-firstname" class="ui-hidden-accessible">First Name:</label>
+                    <input type="text" name="firstname" id="sign-up-first-name" value="" placeholder="First Name" />
 
-                    <label for="lastname" class="ui-hidden-accessible">Last Name:</label>
-                    <input type="text" name="lastname" id="last-name" value="" placeholder="Last Name"  />
+                    <label for="sign-up-lastname" class="ui-hidden-accessible">Last Name:</label>
+                    <input type="text" name="lastname" id="sign-up-last-name" value="" placeholder="Last Name"  />
 
-                    <label for="passcode" class="ui-hidden-accessible">Passcode (4-6 digits):</label>
-                    <input type="text" name="passcode" id="passcode" value="" placeholder="Passcode (4-6 digits)" data-placeholder="true" />
+                    <label for="sign-up-passcode" class="ui-hidden-accessible">Passcode (4-6 digits):</label>
+                    <input type="password" name="passcode" id="sign-up-passcode" value="" placeholder="Passcode (4-6 digits)" data-placeholder="true" />
 
-                    <input id="sign-up-submit" type="submit" value="Sign Up" data-theme="e" />
+                    <input type="submit" value="Sign Up" data-theme="e" />
                 </form>
             </div>
         </div>
@@ -52,12 +52,12 @@
             <div data-role="content">
                 <h2>Welcome to TruPass!</h2>
                 
-                <div class="form">
+                <form id="confirmation-form" class="form" method="POST" data-ajax="false">
                     <p>Thank you for registering.</p>
                     <p>Please check your email to confirm your account.</p>
 
                     <input type="submit" value="Send Confirmation Again" data-theme="e" />
-                </div>
+                </form>
             </div>
         </div>
 
@@ -71,12 +71,12 @@
 
                 <p>You received a TruPass from <span class="name">Simon Burns</span> with a <span class="amount">$100.00</span> limit.</p>
                 
-                <div class="form">
+                <form id="accept-trupass-form" class="form" method="POST" data-ajax="false">
                     <label for="security-answer">What is Khoa's favourit tablet?</label>
                     <input type="text" name="security-answer" id="security-answer" value=""  />
 
                     <input type="submit" value="Accept TruPass" data-theme="e" />
-                </div>
+                </form>
             </div>
         </div>
 
@@ -88,12 +88,12 @@
             <div data-role="content">
                 <h2>Enter your passcode</h2>
                 
-                <div class="form">
-                    <label for="passcode" class="ui-hidden-accessible">Passcode:</label>
-                    <input type="number" name="passcode" id="passcode" value=""  />
+                <form id="enter-passcode-form" class="form" method="POST" data-ajax="false">
+                    <label for="enter-passcode-passcode" class="ui-hidden-accessible">Passcode:</label>
+                    <input type="number" name="passcode" id="enter-passcode-passcode" value=""  />
 
                     <input type="submit" value="Enter" data-theme="e" />
-                </div>
+                </form>
             </div>
         </div>
 
@@ -106,11 +106,11 @@
                 <h2>Login TruPass</h2>
                 
                 <form id="login-form" class="form" method="POST" data-ajax="false">
-                    <label for="email" class="ui-hidden-accessible">Email:</label>
-                    <input type="email" name="email" id="email" value="" placeholder="Email"  />
+                    <label for="login-email" class="ui-hidden-accessible">Email:</label>
+                    <input type="email" name="email" id="login-email" value="" placeholder="Email"  />
 
-                    <label for="passcode" class="ui-hidden-accessible">Passcode:</label>
-                    <input type="text" name="passcode" id="passcode" value="" Placeholder="Passcode"  />
+                    <label for="login-passcode" class="ui-hidden-accessible">Passcode:</label>
+                    <input type="password" name="passcode" id="login-passcode" value="" Placeholder="Passcode"  />
 
                     <input type="submit" value="Login" data-theme="e" />
                 </form>
@@ -128,17 +128,17 @@
             <div data-role="content">
                 <h2>Credit Card Information</h2>
                 
-                <div class="form">
-                    <label for="mastercard" class="ui-hidden-accessible">Mastercard Number:</label>
-                    <input type="text" name="mastercard" id="mastercard" value="" placeholder="Mastercard Number"  />
+                <form id="add-card-form" class="form" method="POST" data-ajax="false">
+                    <label for="add-card-mastercard" class="ui-hidden-accessible">Mastercard Number:</label>
+                    <input type="text" name="mastercard" id="add-card-mastercard" value="" placeholder="Mastercard Number"  />
 
-                    <label for="cardholder" class="ui-hidden-accessible">Cardholder Name:</label>
-                    <input type="text" name="cardholder" id="cardholder" value="" Placeholder="Cardholder Name" />
+                    <label for="add-card-cardholder" class="ui-hidden-accessible">Cardholder Name:</label>
+                    <input type="text" name="cardholder" id="add-card-cardholder" value="" Placeholder="Cardholder Name" />
 
                     <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Expiration Date:</legend>
                         <!-- <label for="month">Month</label> -->
-                        <select name="month" id="month" data-role="none">
+                        <select name="month" id="add-card-month" data-role="none">
                             <option>MM</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -155,7 +155,7 @@
                         </select>
 
                         <!-- <label for="year">Year</label> -->
-                        <select name="year" id="year" data-role="none">
+                        <select name="year" id="add-card-year" data-role="none">
                             <option>YYYY</option>
                             <option value="2013">2013</option>
                             <option value="2014">2014</option>
@@ -164,11 +164,11 @@
                         </select>
                     </fieldset>
 
-                    <label for="cvc">Security Code:</label>
-                    <input type="number" name="cvc" id="cvc" value="" />
+                    <label for="add-card-cvv">Security Code:</label>
+                    <input type="number" name="cvv" id="add-card-cvv" value="" />
 
                     <input type="submit" value="Add Card" data-theme="e" />
-                </div>
+                </form>
             </div>
         </div>
 
@@ -181,13 +181,51 @@
             </div>
 
             <div data-role="content">
-                <h2>My Cards</h2>
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">3</span></li>
+                    <li>
+                        <a href="index.html">
+                            <img src="../../_assets/img/card-standard-generic.png" />
+                            <h3>Mastercard Standard</h3>
+                            <p class="ui-li-aside"><span>$325.85</span>Available Credit</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <img src="../../_assets/img/card-world-generic.png" />
+                            <h3>Mastercard World</h3>
+                            <p class="ui-li-aside"><span>$1,500.00</span>Available Credit</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <img src="../../_assets/img/card-world-elite-generic.png" />
+                            <h3>Mastercard World Elite</h3>
+                            <p class="trupass"></p>
+                            <p class="ui-li-aside"><span>$5,840.21</span>Available Credit</p>
+                        </a>
+                    </li>
+                    <li data-role="list-divider">Thursday, October 7, 2010 <span class="ui-li-count">1</span></li>
+                    <li>
+                        <a href="index.html">
+                            <img src="../../_assets/img/icon-trupass.png" />
+                            <h3>Received from Simon Burns</h3>
+                            <p>Expires Oct 6, 2013</p>
+                            <p class="ui-li-aside"><span>$100.00</span>Available Credit</p>
+                        </a>
+                    </li>
+                </ul>
+                <!-- <h2>My Cards</h2>
                 <ul id="my-cards" data-role="listview">
+                    <li>
+                        <span class="card"></span>
+                        <span class="amount"></span>
+                    </li>
                 </ul>
 
                 <h2>My TruPass</h2>
                 <ul id="my-trupass" data-role="listview">
-                </ul>
+                </ul> -->
             </div>
         </div>
 

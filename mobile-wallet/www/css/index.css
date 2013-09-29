@@ -421,6 +421,46 @@ input.ui-input-text {
     padding: 5px;
 }
 
+.wallet .ui-li-divider {
+    background: #0099CC none;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.wallet h3 {
+    text-overflow: ellipsis;
+    overflow: visible;
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.wallet .ui-li-aside span {
+    display: block;
+    color: #2AB260;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.wallet .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+    padding-left: 50px;
+}
+
+.wallet .ui-li-has-arrow .ui-btn-inner a.ui-link-inherit {
+    padding-right: 55px;
+}
+
+.wallet .ui-li-thumb {
+    top: 10px;
+}
+
+.ui-icon-payment {
+    background: transparent url(../img/icon-pay.png) no-repeat !important;
+    top: 30% !important;
+    width: 35px;
+    height: 35px;
+}
+
 .add-card legend {
 
 }

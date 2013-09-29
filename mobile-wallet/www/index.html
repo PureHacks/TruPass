@@ -181,13 +181,69 @@
             </div>
 
             <div data-role="content">
-                <h2>My Cards</h2>
+                <ul data-role="listview" data-inset="true" data-icon="payment" data-corners="false">
+                    <li data-role="list-divider">My Cards <span class="ui-li-count">3</span></li>
+                    <li>
+                        <a href="#payment">
+                            <img src="/img/card-standard-generic.png" />
+                            <h3>Mastercard Standard</h3>
+                            <p class="ui-li-aside"><span>$325.85</span>Available Credit</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#payment">
+                            <img src="/img/card-world-generic.png" />
+                            <h3>Mastercard World</h3>
+                            <p class="ui-li-aside"><span>$1,500.00</span>Available Credit</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#payment">
+                            <img src="/img/card-world-elite-generic.png" />
+                            <h3>Mastercard World Elite</h3>
+                            <p class="trupass"></p>
+                            <p class="ui-li-aside"><span>$5,840.21</span>Available Credit</p>
+                        </a>
+                    </li>
+                    <li data-role="list-divider">My TruPass <span class="ui-li-count">1</span></li>
+                    <li>
+                        <a href="#payment">
+                            <img src="/img/icon-trupass.png" />
+                            <h3>Received from Simon Burns</h3>
+                            <p>Expires Oct 6, 2013</p>
+                            <p class="ui-li-aside"><span>$100.00</span>Available Credit</p>
+                        </a>
+                    </li>
+                </ul>
+                <!-- <h2>My Cards</h2>
                 <ul id="my-cards" data-role="listview">
+                    <li>
+                        <span class="card"></span>
+                        <span class="amount"></span>
+                    </li>
                 </ul>
 
                 <h2>My TruPass</h2>
                 <ul id="my-trupass" data-role="listview">
-                </ul>
+                </ul> -->
+            </div>
+        </div>
+
+        <div id="payment" class="app payment" data-role="page" data-add-back-btn="false">
+            <div data-role="header" data-theme="e">
+                <h1><a href="#" data-rel="back" data-icon="arrow-l" data-theme="b" data-role="button" data-mini="true" data-iconpos="notext"></a> <span class="logo"></span> Payment</h1>
+            </div>
+
+            <div data-role="content">
+                <img src="" />
+                <h3>World Elite Mastercard</h3>
+                <p class="available-credit">$9,130.45</p>
+                <p>Available Credit</p>
+
+                <a href="#"><img src="" /></a>
+                <p>Tap to enable</p>
+
+                <a href="#wallet">Back to Wallet</a>
             </div>
         </div>
 

@@ -74,6 +74,10 @@ body {
 
 }
 
+input[type=number] {
+    -webkit-text-security: disc;
+}
+
 .ui-btn-corner-all {
     -webkit-border-radius: 5px;
             border-radius: 5px;
@@ -415,6 +419,23 @@ input.ui-input-text {
     color: #FFFFFF;
     text-shadow: none;
     padding: 5px;
+}
+
+.wallet h3 {
+    text-overflow: ellipsis;
+    overflow: visible;
+    font-size: 14px;
+}
+
+.wallet .ui-li-aside span {
+    display: block;
+    color: #2AB260;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.wallet .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+    padding-left: 50px;
 }
 
 .add-card legend {

@@ -309,6 +309,11 @@ function loadMyTruPass() {
     // });
 }
 
+$(document).on("pageshow", "#wallet", function (e) {
+    loadMyCards();
+    loadMyTruPass();
+});
+
 
 // $('#reposHome').bind('pageinit', function(event) {
 //     loadRepos();
