@@ -7,7 +7,9 @@ var express = require("express"),
 	MongoClient = require("mongodb").MongoClient,
 	format = require("util").format,
 	globalResponse,
-	globalRequest;
+	globalRequest,
+	ObjectID = require('mongodb').ObjectID,
+	uri = 'mongodb://heroku_app18393746:1mhabliftdatf6sl9sen2ltaob@ds047448.mongolab.com:47448/heroku_app18393746';
 
 util.request = function() {
 
@@ -24,6 +26,7 @@ util.request = function() {
 					"lastName": qs.lastName,
 					"email": qs.email,
 					"pass": qs.pass,
+					"confirmed": false,
 					"dateCreated": new Date()
 				};
 				util.register(nosql);
@@ -46,22 +49,58 @@ util.request = function() {
 				util.updateUser(qs.userID, nosql);
 				break;
 
-			case "addTruPass":
+			case "addCreditCard":
+				nosql = {
+					"creditCard": {
+						"number": qs.number,
+						"nameOnCard": qs.nameOnCard,
+						"expiry": qs.expiry,
+						"ccid": qs.ccid,
+						"limit": qs.limit
+					}
+				};
+				util.addCreditCard(qs.userID, nosql);
+				break;
+			case "listCreditCard":
+				util.listCreditCard(qs.userID);
+				break;
 
+			case "removeCreditCard":
+				break;
+			case "updateCreditCard":
+				break;
+			case "addTruPass":
+				nosql = {
+					"limit": qs.limit,
+					"balance": qs.limit,
+					"userID": null,
+					"parentCard": qs.parentCard,
+					"preAuthId": null,
+					"type": qs.type
+				};
+
+				var user = {
+					"email": qs.email,
+					"firstName": qs.fistName,
+					"lastName": qs.lastName
+				};
+
+				util.addTruPass(user, nosql);
 				break;
 			case "removeTruPass":
 
 				break;
 			case "updateTruPass":
 				break;
-			case "addCreditCard":
-				break;
-			case "removeCreditCard":
-				break;
-			case "updateCreditCard":
-				break;
+
 			case "addTransaction":
 
+				break;
+			case "confirmUser":
+				util.updateUser(qs.userID, {
+					"confirmed": true
+				});
+				break;
 			default:
 				globalResponse.send(200, {
 					"error": "An error"
@@ -71,8 +110,53 @@ util.request = function() {
 	}
 }
 
+util.listCreditCard = function(userID) {
+	if (userID) {
+		util.getData({
+			"_id": ObjectID(userID)
+		}, {
+			"creditCard": 1
+		}, function(err, result) {
+			if (err) {
+				globalResponse.send(200, {
+					"error": "Something is wrong with your query" + err.message
+				});
+			} else {
+				globalResponse.send(200, {
+					"ok": "success",
+					"creditCards": result[0].creditCard
+				});
+			}
+		});
+	}
+}
+
+util.addCreditCard = function(userID, nosql) {
+	console.log("check for userID to add credit card");
+	if (userID) {
+		console.log("adding credit card");
+
+		util.updateDataArray({
+			"_id": ObjectID(userID)
+		}, nosql, function(err, result) {
+			if (err) {
+				globalResponse.send(200, {
+					"error": "problem adding card. " + err.message
+				});
+			} else {
+				globalResponse.send(200, {
+					"ok": "added card"
+				});
+			}
+		});
+	} else {
+		globalResponse.send(200, {
+			"error": "No userId was specified"
+		});
+	}
+}
+
 util.updateUser = function(userID, nosql) {
-	var ObjectID = require('mongodb').ObjectID;
 	if (userID) {
 		console.log("updating user");
 
@@ -81,7 +165,7 @@ util.updateUser = function(userID, nosql) {
 		}, nosql, function(err, result) {
 			if (err) {
 				globalResponse.send(200, {
-					"error": "problem updating"
+					"error": "problem updating. " + err.message
 				});
 			} else {
 				globalResponse.send(200, {
@@ -112,15 +196,16 @@ util.register = function(nosql) {
 				if (err) {
 					console.warn(err.message);
 					globalResponse.send(200, {
-						"error": "Could not insert user"
+						"error": "Could not insert user." + err.message
 					});
 				} else {
 					console.info("Added new user");
+					console.log(object);
 					globalResponse.send(200, {
-						"ok": "Added new user"
+						"ok": "Added new user",
+						"userID": object[0]._id
 					});
 				}
-
 			});
 		}
 	});
@@ -128,33 +213,27 @@ util.register = function(nosql) {
 
 util.login = function(nosql) {
 	console.log("Loging...");
-
 	util.getData(nosql, function(err, item) {
 		if (item.length < 1) {
 			globalResponse.send(200, {
-				"error": "no user found"
+				"error": "no user found" + err.message
 			});
 		} else {
+			item = item[0];
+			delete item.pass;
 			globalResponse.send(200, item);
 		}
 	});
 }
 
 util.updateData = function(selector, nosql, callback) {
-	var mongo = require('mongodb'),
-		Server = mongo.Server,
-		Db = mongo.Db;
-	var server = new Server('localhost', 27017, {
-		auto_reconnect: true
-	});
-	var db = new Db('test', server);
-	// Establish connection to db
-	db.open(function(err, db) {
-
-		// Get a collection
+	var mongodb = require('mongodb');
+	mongodb.MongoClient.connect(uri, {
+		server: {
+			auto_reconnect: true
+		}
+	}, function(err, db) {
 		db.collection('user', function(err, db) {
-
-			// Update the document using an upsert operation, ensuring creation if it does not exist
 			db.update(selector, {
 				$set: nosql
 			}, {
@@ -165,13 +244,32 @@ util.updateData = function(selector, nosql, callback) {
 	});
 }
 
+util.updateDataArray = function(selector, nosql, callback) {
+	var mongodb = require('mongodb');
+	mongodb.MongoClient.connect(uri, {
+		server: {
+			auto_reconnect: true
+		}
+	}, function(err, db) {
+		db.collection('user', function(err, db) {
+			db.update(selector, {
+				$addToSet: nosql
+			}, {
+				upsert: false,
+				w: 1
+			}, callback);
+		});
+	});
+}
+
 util.insertData = function(nosql, callback) {
 	var mongodb = require('mongodb');
-	var server = new mongodb.Server("127.0.0.1", 27017, {});
-	new mongodb.Db('test', server, {}).open(function(error, client) {
-		if (error) throw error;
-
-		var collection = new mongodb.Collection(client, 'user');
+	mongodb.MongoClient.connect(uri, {
+		server: {
+			auto_reconnect: true
+		}
+	}, function(err, db) {
+		var collection = new mongodb.Collection(db, 'user');
 
 		collection.insert(nosql, {
 			safe: true
@@ -179,23 +277,28 @@ util.insertData = function(nosql, callback) {
 	});
 }
 
-util.getData = function(nosql, callback) {
-	var mongo = require('mongodb'),
-		Server = mongo.Server,
-		Db = mongo.Db;
-	var server = new Server('localhost', 27017, {
-		auto_reconnect: true
-	});
-	var db = new Db('test', server);
+util.getData = function() {
 
-	db.open(function(err, db) {
+	var args = Array.prototype.slice.call(arguments, 0),
+		hasCallback = typeof args[args.length - 1] === 'function',
+		hasWeirdCallback = typeof args[0] === 'function',
+		callback = hasCallback ? args.pop() : (hasWeirdCallback ? args.shift() : null),
+		len = args.length,
+		selector = len >= 1 ? args[0] : {}, fields = len >= 2 ? args[1] : {};
+
+	var mongodb = require('mongodb');
+	mongodb.MongoClient.connect(uri, {
+		server: {
+			auto_reconnect: true
+		}
+	}, function(err, db) {
 		if (err) return callback(err);
 
 		db.collection('user', function(err, collection) {
 			if (err) return callback(err);
 			console.log("inside getData");
-			console.log(nosql);
-			collection.find(nosql).toArray(callback);
+			console.log(selector);
+			collection.find(selector, fields).toArray(callback);
 		});
 	});
 }
@@ -230,7 +333,7 @@ app.get("/api", function(req, res) {
 	globalRequest = req;
 	globalResponse = res;
 
-	var validTypes = ["login", "register", "updateUser", "addTruPass", "removeTruPass", "updateTruPass", "addCreditCard", "removeCreditCard", "updateCreditCard", "addTransaction"];
+	var validTypes = ["login", "register", "updateUser", "confirmUser", "addTruPass", "removeTruPass", "updateTruPass", "listCreditCard", "addCreditCard", "removeCreditCard", "updateCreditCard", "addTransaction"];
 	if (validTypes.indexOf(globalRequest.query.method) !== -1) {
 
 		util.request();
