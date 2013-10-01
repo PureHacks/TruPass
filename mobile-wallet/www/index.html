@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>TruPass</title>
@@ -224,15 +224,22 @@
             </div>
 
             <div data-role="content">
-                <img src="" />
+                <img src="img/card-world-elite-generic.png" />
                 <h3>World Elite Mastercard</h3>
                 <p class="available-credit">$9,130.45</p>
                 <p>Available Credit</p>
 
-                <a href="#"><img src="" /></a>
-                <p>Tap to enable</p>
+                <div class="nfc-disabled">
+                    <a id="enable-nfc" href="#"><img src="img/icon-nfc-disabled.png" class="nfc-icon" /></a>
+                    <p>Tap to enable</p>
+                </div>
 
-                <a href="#wallet">Back to Wallet</a>
+                <div class="nfc-enabled">
+                    <a id="send-nfc-data" href="#"><img src="img/icon-nfc-enabled.png" class="nfc-icon" /></a>
+                    <p class="timer">14s</p>
+                </div>
+
+                <a href="#wallet" data-role="button" data-theme="c">Back to Wallet</a>
             </div>
         </div>
 

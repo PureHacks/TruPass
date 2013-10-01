@@ -477,6 +477,38 @@ input.ui-input-text {
     color: #2AB260;
 }
 
+.payment {
+    text-align: center;
+}
+
+.payment h3, .payment p {
+    margin: 0;
+}
+
+.payment p {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.payment .available-credit {
+    color: #2AB260;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.payment .nfc-disabled {
+    display: block;
+}
+
+.payment .nfc-enabled {
+    display: none;
+}
+
+.payment .nfc-icon {
+    margin-top: 30px;
+}
+
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
