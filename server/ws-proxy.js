@@ -4,12 +4,14 @@ var express = require("express"),
 	app = express(),
 	qstring = require("querystring"),
 	extend = require("xtend"),
-	MongoClient = require("mongodb").MongoClient,
 	format = require("util").format,
 	globalResponse,
 	globalRequest,
 	ObjectID = require('mongodb').ObjectID,
 	uri = 'mongodb://heroku_app18393746:1mhabliftdatf6sl9sen2ltaob@ds047448.mongolab.com:47448/heroku_app18393746';
+
+var ml = require("mongolink");
+ml.uri = uri;
 
 util.request = function() {
 
@@ -108,11 +110,11 @@ util.request = function() {
 				break;
 		}
 	}
-}
+};
 
 util.listCreditCard = function(userID) {
 	if (userID) {
-		util.getData({
+		ml.getData({
 			"_id": ObjectID(userID)
 		}, {
 			"creditCard": 1
@@ -129,14 +131,14 @@ util.listCreditCard = function(userID) {
 			}
 		});
 	}
-}
+};
 
 util.addCreditCard = function(userID, nosql) {
 	console.log("check for userID to add credit card");
 	if (userID) {
 		console.log("adding credit card");
 
-		util.updateDataArray({
+		ml.updateDataArray({
 			"_id": ObjectID(userID)
 		}, nosql, function(err, result) {
 			if (err) {
@@ -154,13 +156,13 @@ util.addCreditCard = function(userID, nosql) {
 			"error": "No userId was specified"
 		});
 	}
-}
+};
 
 util.updateUser = function(userID, nosql) {
 	if (userID) {
 		console.log("updating user");
 
-		util.updateData({
+		ml.updateData({
 			"_id": ObjectID(userID)
 		}, nosql, function(err, result) {
 			if (err) {
@@ -178,12 +180,12 @@ util.updateUser = function(userID, nosql) {
 			"error": "please specify existing user email and new email"
 		});
 	}
-}
+};
 
 util.register = function(nosql) {
 	console.log("Registering...");
 	console.log("Checking for existing user");
-	util.getData({
+	ml.getData({
 		"email": nosql.email
 	}, function(err, item) {
 		if (item.length > 0) {
@@ -191,7 +193,7 @@ util.register = function(nosql) {
 				"error": "User already existing"
 			});
 		} else {
-			util.insertData(nosql, function(err, object) {
+			ml.insertData(nosql, function(err, object) {
 				console.log("inserting new user");
 				if (err) {
 					console.warn(err.message);
@@ -209,99 +211,30 @@ util.register = function(nosql) {
 			});
 		}
 	});
-}
+};
 
 util.login = function(nosql) {
 	console.log("Loging...");
-	util.getData(nosql, function(err, item) {
-		if (item.length < 1) {
+	console.log(ml);
+	ml.getData(nosql, function(err, item) {
+		if (err) {
 			globalResponse.send(200, {
-				"error": "no user found" + err.message
+				"error": err.message
 			});
 		} else {
-			item = item[0];
-			delete item.pass;
-			globalResponse.send(200, item);
+			if (item.length < 1) {
+				globalResponse.send(200, {
+					"error": "Invalid credentials. please try again"
+				});
+			} else {
+				item = item[0];
+				delete item.pass;
+				globalResponse.send(200, item);
+			}
 		}
 	});
-}
+};
 
-util.updateData = function(selector, nosql, callback) {
-	var mongodb = require('mongodb');
-	mongodb.MongoClient.connect(uri, {
-		server: {
-			auto_reconnect: true
-		}
-	}, function(err, db) {
-		db.collection('user', function(err, db) {
-			db.update(selector, {
-				$set: nosql
-			}, {
-				upsert: false,
-				w: 1
-			}, callback);
-		});
-	});
-}
-
-util.updateDataArray = function(selector, nosql, callback) {
-	var mongodb = require('mongodb');
-	mongodb.MongoClient.connect(uri, {
-		server: {
-			auto_reconnect: true
-		}
-	}, function(err, db) {
-		db.collection('user', function(err, db) {
-			db.update(selector, {
-				$addToSet: nosql
-			}, {
-				upsert: false,
-				w: 1
-			}, callback);
-		});
-	});
-}
-
-util.insertData = function(nosql, callback) {
-	var mongodb = require('mongodb');
-	mongodb.MongoClient.connect(uri, {
-		server: {
-			auto_reconnect: true
-		}
-	}, function(err, db) {
-		var collection = new mongodb.Collection(db, 'user');
-
-		collection.insert(nosql, {
-			safe: true
-		}, callback);
-	});
-}
-
-util.getData = function() {
-
-	var args = Array.prototype.slice.call(arguments, 0),
-		hasCallback = typeof args[args.length - 1] === 'function',
-		hasWeirdCallback = typeof args[0] === 'function',
-		callback = hasCallback ? args.pop() : (hasWeirdCallback ? args.shift() : null),
-		len = args.length,
-		selector = len >= 1 ? args[0] : {}, fields = len >= 2 ? args[1] : {};
-
-	var mongodb = require('mongodb');
-	mongodb.MongoClient.connect(uri, {
-		server: {
-			auto_reconnect: true
-		}
-	}, function(err, db) {
-		if (err) return callback(err);
-
-		db.collection('user', function(err, collection) {
-			if (err) return callback(err);
-			console.log("inside getData");
-			console.log(selector);
-			collection.find(selector, fields).toArray(callback);
-		});
-	});
-}
 
 app.configure(function() {
 	app.set("port", process.env.PORT || 5000);
@@ -310,6 +243,7 @@ app.configure(function() {
 	app.set("views", __dirname + "/views");
 	app.set("view engine", "ejs");
 	app.use(express.static(__dirname + '/public'));
+	app.use(express.bodyParser());
 });
 
 app.configure('development', function() {
@@ -326,6 +260,71 @@ app.configure('production', function() {
 app.use(function(err, req, res, next) {
 	console.error(err.stack);
 	res.send(500, '<h1>OH FUDGE!</h1>');
+});
+
+app.post("/api/login/", function(req, res) {
+	globalRequest = req;
+	globalResponse = res;
+
+	nosql = {
+		"email": req.body.email,
+		"pass": req.body.pass
+	};
+
+	util.login(nosql);
+});
+
+app.post("/api/register/", function(req, res) {
+	globalRequest = req;
+	globalResponse = res;
+
+	nosql = {
+		"firstName": req.body.firstName,
+		"lastName": req.body.lastName,
+		"email": req.body.email,
+		"pass": req.body.pass,
+		"confirmed": false,
+		"dateCreated": new Date()
+	};
+
+	util.register(nosql);
+});
+
+app.post("/api/updateUser/", function(req, res) {
+	globalRequest = req;
+	globalResponse = res;
+
+	nosql = {
+		"firstName": req.body.firstName,
+		"lastName": req.body.lastName,
+		"email": req.body.email
+	};
+
+	util.updateUser(req.body.userID, nosql);
+});
+
+app.put("/api/addCreditCard/", function(req, res) {
+	globalRequest = req;
+	globalResponse = res;
+
+	nosql = {
+		"creditCard": {
+			"number": req.body.number,
+			"nameOnCard": req.body.nameOnCard,
+			"expiry": req.body.expiry,
+			"ccid": req.body.ccid,
+			"limit": req.body.limit
+		}
+	};
+
+	util.addCreditCard(req.body.userID, nosql);
+});
+
+app.get("/api/listCreditCard/:userID", function(req, res) {
+	globalRequest = req;
+	globalResponse = res;
+
+	util.listCreditCard(req.param.userID);
 });
 
 app.get("/api", function(req, res) {
