@@ -1,6 +1,6 @@
 var express = require("express"),
 	cache = require("memory-cache"),
-	util = {},
+	trupass = {},
 	app = express(),
 	qstring = require("querystring"),
 	extend = require("xtend"),
@@ -13,7 +13,7 @@ var express = require("express"),
 var ml = require("mongolink");
 ml.uri = uri;
 
-util.request = function() {
+trupass.request = function() {
 
 	if (globalRequest) {
 		var nosql,
@@ -31,7 +31,7 @@ util.request = function() {
 					"confirmed": false,
 					"dateCreated": new Date()
 				};
-				util.register(nosql);
+				trupass.register(nosql);
 				break;
 
 			case "login":
@@ -39,7 +39,7 @@ util.request = function() {
 					"email": qs.email,
 					"pass": qs.pass
 				};
-				util.login(nosql);
+				trupass.login(nosql);
 				break;
 
 			case "updateUser":
@@ -48,7 +48,7 @@ util.request = function() {
 					"lastName": qs.lastName,
 					"email": qs.email
 				};
-				util.updateUser(qs.userID, nosql);
+				trupass.updateUser(qs.userID, nosql);
 				break;
 
 			case "addCreditCard":
@@ -61,10 +61,10 @@ util.request = function() {
 						"limit": qs.limit
 					}
 				};
-				util.addCreditCard(qs.userID, nosql);
+				trupass.addCreditCard(qs.userID, nosql);
 				break;
 			case "listCreditCard":
-				util.listCreditCard(qs.userID);
+				trupass.listCreditCard(qs.userID);
 				break;
 
 			case "removeCreditCard":
@@ -87,7 +87,7 @@ util.request = function() {
 					"lastName": qs.lastName
 				};
 
-				util.addTruPass(user, nosql);
+				trupass.addTruPass(user, nosql);
 				break;
 			case "removeTruPass":
 
@@ -99,7 +99,7 @@ util.request = function() {
 
 				break;
 			case "confirmUser":
-				util.updateUser(qs.userID, {
+				trupass.updateUser(qs.userID, {
 					"confirmed": true
 				});
 				break;
@@ -112,7 +112,9 @@ util.request = function() {
 	}
 };
 
-util.listCreditCard = function(userID) {
+trupass.listCreditCard = function(req, res) {
+	var userID = req.params.userID;
+
 	if (userID) {
 		ml.getData({
 			"_id": ObjectID(userID)
@@ -120,21 +122,38 @@ util.listCreditCard = function(userID) {
 			"creditCard": 1
 		}, function(err, result) {
 			if (err) {
-				globalResponse.send(200, {
+				res.send(200, {
 					"error": "Something is wrong with your query" + err.message
 				});
 			} else {
-				globalResponse.send(200, {
+				res.send(200, {
 					"ok": "success",
 					"creditCards": result[0].creditCard
 				});
 			}
 		});
+	} else {
+		res.send(200, {
+			"error": "no user was specified"
+		});
 	}
 };
 
-util.addCreditCard = function(userID, nosql) {
+trupass.addCreditCard = function(req, res) {
+
+	var nosql = {
+		"creditCard": {
+			"number": req.body.number,
+			"nameOnCard": req.body.nameOnCard,
+			"expiry": req.body.expiry,
+			"ccid": req.body.ccid,
+			"limit": req.body.limit
+		}
+	},
+		userID = req.body.userID;
+
 	console.log("check for userID to add credit card");
+
 	if (userID) {
 		console.log("adding credit card");
 
@@ -142,23 +161,104 @@ util.addCreditCard = function(userID, nosql) {
 			"_id": ObjectID(userID)
 		}, nosql, function(err, result) {
 			if (err) {
-				globalResponse.send(200, {
+				res.send(200, {
 					"error": "problem adding card. " + err.message
 				});
 			} else {
-				globalResponse.send(200, {
+				res.send(200, {
 					"ok": "added card"
 				});
 			}
 		});
 	} else {
-		globalResponse.send(200, {
+		res.send(200, {
 			"error": "No userId was specified"
 		});
 	}
 };
 
-util.updateUser = function(userID, nosql) {
+trupass.addTruPass = function(req, res) {
+
+	var nosql = {
+		"trupass": {
+			"limit": req.body.limit,
+			"balance": req.body.limit,
+			"parentCard": req.body.parentCard,
+			"preAuthId": null,
+			"type": req.body.type
+		}
+	},
+		user = {
+			"firstName": req.body.firstName,
+			"lastName": req.body.lastName,
+			"email": req.body.email,
+			"pass": null,
+			"confirmed": false,
+			"dateCreated": new Date(),
+			"requireNewPassword": true
+		};
+
+	//register user or get userID
+	ml.getData({
+		"email": user.email
+	}, function(err, item) {
+		if (item.length > 0) {
+			var userID = item[0]._id;
+			console.log("userId = ");
+			console.log(userID);
+			if (userID) {
+				console.log("trupass");
+				ml.updateDataArray({
+					"_id": userID
+				}, nosql, function(err, result) {
+					if (err) {
+						res.send(200, {
+							"error": "problem adding trupass. " + err.message
+						});
+					} else {
+						res.send(200, {
+							"ok": "added trupass"
+						});
+					}
+				});
+			} else {
+				res.send(200, {
+					"error": "No userId was specified"
+				});
+			}
+		} else {
+			user.trupass = [nosql.trupass];
+			ml.insertData(user, function(err, newUser) {
+				if (err) {
+					console.warn(err.message);
+					res.send(200, {
+						"error": "Could not insert user." + err.message
+					});
+				} else {
+					res.send(200, {
+						"ok": "added trupass and notification sent to new user"
+					});
+				}
+			});
+		}
+	});
+};
+
+trupass.confirmUser = function(req, res) {
+	trupass.updateUser(req.body.userID, {
+		"confirmed": true
+	});
+};
+
+trupass.updateUser = function(req, res) {
+
+	var nosql = {
+		"firstName": req.body.firstName,
+		"lastName": req.body.lastName,
+		"email": req.body.email
+	},
+		userID = req.body.userID;
+
 	if (userID) {
 		console.log("updating user");
 
@@ -166,30 +266,38 @@ util.updateUser = function(userID, nosql) {
 			"_id": ObjectID(userID)
 		}, nosql, function(err, result) {
 			if (err) {
-				globalResponse.send(200, {
+				res.send(200, {
 					"error": "problem updating. " + err.message
 				});
 			} else {
-				globalResponse.send(200, {
+				res.send(200, {
 					"ok": "user updated"
 				});
 			}
 		});
 	} else {
-		globalResponse.send(200, {
+		res.send(200, {
 			"error": "please specify existing user email and new email"
 		});
 	}
 };
 
-util.register = function(nosql) {
-	console.log("Registering...");
-	console.log("Checking for existing user");
+trupass.register = function(req, res) {
+
+	var nosql = {
+		"firstName": req.body.firstName,
+		"lastName": req.body.lastName,
+		"email": req.body.email,
+		"pass": req.body.pass,
+		"confirmed": false,
+		"dateCreated": new Date()
+	};
+
 	ml.getData({
 		"email": nosql.email
 	}, function(err, item) {
 		if (item.length > 0) {
-			globalResponse.send(200, {
+			res.send(200, {
 				"error": "User already existing"
 			});
 		} else {
@@ -197,13 +305,12 @@ util.register = function(nosql) {
 				console.log("inserting new user");
 				if (err) {
 					console.warn(err.message);
-					globalResponse.send(200, {
+					res.send(200, {
 						"error": "Could not insert user." + err.message
 					});
 				} else {
 					console.info("Added new user");
-					console.log(object);
-					globalResponse.send(200, {
+					res.send(200, {
 						"ok": "Added new user",
 						"userID": object[0]._id
 					});
@@ -213,23 +320,29 @@ util.register = function(nosql) {
 	});
 };
 
-util.login = function(nosql) {
+trupass.login = function(req, res) {
+
+	var nosql = {
+		"email": req.body.email,
+		"pass": req.body.pass
+	};
+
 	console.log("Loging...");
 	console.log(ml);
 	ml.getData(nosql, function(err, item) {
 		if (err) {
-			globalResponse.send(200, {
+			res.send(200, {
 				"error": err.message
 			});
 		} else {
 			if (item.length < 1) {
-				globalResponse.send(200, {
+				res.send(200, {
 					"error": "Invalid credentials. please try again"
 				});
 			} else {
 				item = item[0];
 				delete item.pass;
-				globalResponse.send(200, item);
+				res.send(200, item);
 			}
 		}
 	});
@@ -262,70 +375,19 @@ app.use(function(err, req, res, next) {
 	res.send(500, '<h1>OH FUDGE!</h1>');
 });
 
-app.post("/api/login/", function(req, res) {
-	globalRequest = req;
-	globalResponse = res;
+app.post("/api/login/", trupass.login);
 
-	nosql = {
-		"email": req.body.email,
-		"pass": req.body.pass
-	};
+app.post("/api/register/", trupass.register);
 
-	util.login(nosql);
-});
+app.post("/api/updateUser/", trupass.updateUser);
 
-app.post("/api/register/", function(req, res) {
-	globalRequest = req;
-	globalResponse = res;
+app.post("/api/confirmUser/", trupass.confirmUser);
 
-	nosql = {
-		"firstName": req.body.firstName,
-		"lastName": req.body.lastName,
-		"email": req.body.email,
-		"pass": req.body.pass,
-		"confirmed": false,
-		"dateCreated": new Date()
-	};
+app.post("/api/addTruPass/", trupass.addTruPass);
 
-	util.register(nosql);
-});
+app.put("/api/addCreditCard/", trupass.addCreditCard);
 
-app.post("/api/updateUser/", function(req, res) {
-	globalRequest = req;
-	globalResponse = res;
-
-	nosql = {
-		"firstName": req.body.firstName,
-		"lastName": req.body.lastName,
-		"email": req.body.email
-	};
-
-	util.updateUser(req.body.userID, nosql);
-});
-
-app.put("/api/addCreditCard/", function(req, res) {
-	globalRequest = req;
-	globalResponse = res;
-
-	nosql = {
-		"creditCard": {
-			"number": req.body.number,
-			"nameOnCard": req.body.nameOnCard,
-			"expiry": req.body.expiry,
-			"ccid": req.body.ccid,
-			"limit": req.body.limit
-		}
-	};
-
-	util.addCreditCard(req.body.userID, nosql);
-});
-
-app.get("/api/listCreditCard/:userID", function(req, res) {
-	globalRequest = req;
-	globalResponse = res;
-
-	util.listCreditCard(req.param.userID);
-});
+app.get("/api/listCreditCard/:userID", trupass.listCreditCard);
 
 app.get("/api", function(req, res) {
 
@@ -335,7 +397,7 @@ app.get("/api", function(req, res) {
 	var validTypes = ["login", "register", "updateUser", "confirmUser", "addTruPass", "removeTruPass", "updateTruPass", "listCreditCard", "addCreditCard", "removeCreditCard", "updateCreditCard", "addTransaction"];
 	if (validTypes.indexOf(globalRequest.query.method) !== -1) {
 
-		util.request();
+		trupass.request();
 
 	} else {
 		globalResponse.send(200, {
