@@ -1,0 +1,125 @@
+<!doctype html>
+<title>testing</title>
+<style>
+label {
+	display: block
+}
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("form[data-method]").on("submit", function(e) {
+			e.preventDefault();
+			var endpoint = $(this).find("input[data-endpoint]").val() ? $(this).find("input[data-endpoint]").val() + "/" : "";
+			var data = $(this).serialize(),
+				url = "/api/" + $(this).data("method") + "/" + endpoint;
+			console.log(data);
+			$.ajax({
+				type: $(this).attr("method"),
+				url: url,
+				data: data,
+				success: function(response) {
+					if (response.error) {
+						$("#output").html(response.error);
+					} else {
+						response.ok != null ? $("#output").html(response.ok) : $("#output").html(response._id);
+						
+						if (response._id) {
+							$("input[name=userID]").val(response._id).data("userinfo", response);
+						}
+						
+						if (response.creditCards) {
+							var cards = "";
+							for (i = 0; i < response.creditCards.length; ++i) {
+								cards += '<option>' + response.creditCards[i].number + '</option>';
+							}
+							$("select[name=parentCard]").html(cards);
+						}
+						if (response.truPass) {
+							var pass = "";
+							for (i = 0; i < response.truPass.length; ++i) {
+								pass += '<option>' + response.truPass[i]._id + '</option>';
+							}
+							$("select[name=truPassID]").html(pass);
+						}
+					}
+				}
+			});
+		});
+	});
+</script>
+<form  data-method="login" method="POST">
+<label>email:</label>
+<input type="text" name="email">
+<label>pass</label>
+<input type="password" name="pass">
+<input type="submit" value="Login">
+</form>
+<hr>
+<form data-method="addCreditCard" method="PUT">
+<h1>Add cc</h1>
+<label>number:</label>
+<input type="text" name="number">
+<label>name on card:</label>
+<input type="text" name="nameOnCard">
+<label>expiry</label>
+<input type="text" name="expiry">
+<label>ccid</label>
+<input type="text" name="ccid">
+<label>limit</label>
+<input type="text" name="limit">
+<input type="submit" value="Add Credit Card">
+<input type="hidden" name="userID" id="userID">
+</form>
+<hr>
+
+<form data-method="listCreditCard" method="GET">
+<h1>Show cc</h1>
+
+<input type="submit" value="Show Credit Card">
+<input type="hidden" data-endpoint="true" name="userID">
+</form>
+
+<hr>
+<form data-method="addTruPass" method="PUT">
+<h1>Add TruPass</h1>
+<label>number:</label>
+<select type="text" name="parentCard">
+	<option>-- select a card --</option>
+</select>
+<label>limit:</label>
+<input type="text" name="limit">
+<label>card type</label>
+<input type="text" name="type">
+<h4>TruPass User</h4>
+<label>First Name</label>
+<input type="text" name="firstName">
+<label>last name</label>
+<input type="text" name="lastName">
+<label>email</label>
+<input type="text" name="email">
+<input type="submit" value="Add tru pass">
+<input type="hidden" name="userID" id="userID">
+</form>
+
+<form data-method="listTruPass" method="GET">
+<h1>Show tru pass</h1>
+
+<input type="submit" value="Show TruPass">
+<input type="hidden" data-endpoint="true" name="userID">
+</form>
+
+<form data-method="recordTransaction" method="POST">
+<h1>Record TruPass Transaction</h1>
+<label>number:</label>
+<select type="text" name="truPassID">
+	<option>-- select a card --</option>
+</select>
+<label>limit:</label>
+<input type="text" name="amount">
+<label>merchant name</label>
+<input type="text" name="merchant">
+<input type="submit" value="Pay with  TruPass">
+<input type="hidden"  name="userID" id="userID">
+</form>
+<div id="output"></div>
