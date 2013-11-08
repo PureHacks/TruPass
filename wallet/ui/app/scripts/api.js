@@ -4,7 +4,7 @@ var api = (function($) {
 	var request: function(_args) {
 		if (typeof _arg === "object") {
 			return $.ajax({
-				url: "/api/" + _args.method + "/" + _args.endpoint,
+				url: "http://trupass.heroku.com/api/" + _args.method + "/" + _args.endpoint,
 				data: _args.data,
 				dataType: "json"
 			});
