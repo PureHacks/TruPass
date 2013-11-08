@@ -6,11 +6,12 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <title>TruPass</title>
         
-        <!-- build:css(.tmp) styles/main.css -->
+        <!-- build:css({.tmp,app}) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/topcoat/css/topcoat-mobile-light.css">
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
     </head>
-    <body ng-app="uiApp">
+    <body class="light" ng-app="uiApp">
         <!-- Add your site or application content here -->
         <div class="container" ng-view=""></div>
 
@@ -32,7 +33,7 @@
         
 
         <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
+        <!--<script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
@@ -44,7 +45,7 @@
         <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
+        <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>-->
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
@@ -54,8 +55,12 @@
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/api.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/user.js"></script>
+        <script src="scripts/controllers/card.js"></script>
+        <script src="scripts/directives/creditCard.js"></script>
         <!-- endbuild -->
     </body>
 </html>
